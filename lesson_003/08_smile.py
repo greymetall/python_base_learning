@@ -52,7 +52,7 @@ def smile(X, Y, color):
     random_points_list4 = points[1::2]
     random_points_list = sd.choice([random_points_list1, random_points_list2, random_points_list3, random_points_list4])
     closed = sd.choice([True, False])
-    sd.lines(point_list=points, color=color,
+    sd.lines(point_list=random_points_list, color=color,
              closed=closed, width=sd.random_number(1, 4))
 
 
