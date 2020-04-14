@@ -1,7 +1,7 @@
 from random import randint
 
 MAX_BUNCHES = 5
-MAX_BUNCHE_SIZE = 20
+MAX_BUNCHE_SIZE = 10
 
 _holder = {}
 _sorted_keys = None
@@ -17,14 +17,17 @@ def put_stones():
 
 
 def take_from_bunch(position, quantity):
+    """ взять камни из кучи """
     if position in _holder:
-        _holder[position] -= quantity
-        return True
+        if (0 < quantity <= 3) & (_holder[position] >= quantity):
+            _holder[position] -= quantity
+            return True
     else:
         return False
 
 
 def get_bunches():
+    """ текущее расположение камней (возвращает список) """
     res = []
     for key in _sorted_keys:
         res.append(_holder[key])
@@ -32,4 +35,5 @@ def get_bunches():
 
 
 def is_gameover():
+    """ конец игры """
     return sum(_holder.values()) == 0

@@ -28,13 +28,13 @@ from termcolor import cprint, colored
 put_stones()
 user_number = 1
 while True:
-    cprint('Текущая позиция', color='green')
+    cprint('Текущая позиция', color='cyan')
     cprint(get_bunches(), color='green')
-    user_color = 'blue' if user_number == 1 else 'yellow'
-    cprint('Ход игрока {}'.format(user_number), color=user_color)
+    user_color = 'blue' if user_number == 1 else 'magenta'
+    cprint('Ход игрока {}'.format(user_number), color=user_color, attrs=['underline'])
     pos = input(colored('Откуда берем?', color=user_color))
     qua = input(colored('Сколько берем?', color=user_color))
-    step_successed = take_from_bunch(position=int(pos), quantity=int(qua))
+    step_successed = take_from_bunch(position=int(pos), quantity=int(qua)) if pos.isdigit() & qua.isdigit() else False
     if step_successed:
         user_number = 2 if user_number == 1 else 1
     else:
@@ -42,4 +42,4 @@ while True:
     if is_gameover():
         break
 
-cprint('Выйграл игрок номер {}'.format(user_number), color='red')
+cprint('Выиграл игрок номер {}'.format(user_number), color='red', attrs=['bold', 'underline', 'reverse'])
