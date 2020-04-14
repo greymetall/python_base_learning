@@ -3,6 +3,7 @@
 # (цикл for)
 import simple_draw as sd
 
+sd.background_color = sd.COLOR_DARK_ORANGE
 sd.resolution = (1200, 600)
 
 
@@ -16,26 +17,12 @@ def brick(x, y, height, width, color):
     end_point = sd.get_point(x1, y1)
     sd.rectangle(left_bottom=start_point, right_top=end_point, color=color, width=width_line)
 
-x, y = -50, 0
-for y in range(0, 750, 50):
-    if not y % 100:
-        for x in range(-50, 1250, 100):
-            if x % 150:
-                width_line = 2
-            else:
-                width_line = 0
-            brick(x=x, y=y, height=50, width=100, color=sd.COLOR_DARK_ORANGE)
-            # else:
-            #     brick(x=x, y=y, height=50, width=100, color=sd.COLOR_DARK_ORANGE)
-    else:
-        for x in range(0, 1200, 100):
-            if x % 150:
-                width_line = 0
-            else:
-                width_line = 2
-            brick(x=x, y=y, height=50, width=100, color=sd.COLOR_DARK_ORANGE)
 
-# brick(x=50, y=50, height=50, width=100, color=sd.COLOR_DARK_ORANGE)
-
+brick_height, brick_width = 50, 100
+for y in range(0, sd.resolution[1] + 1, brick_height):
+    for x in range(-brick_width // 2, sd.resolution[0] + brick_width // 2 + 1, brick_width):
+        x_ = x if not y % (2 * brick_height) else x + brick_width // 2
+        width_line = 2 if (-x_ + brick_width // 2 + y) % 50 or (-x_ + brick_width // 2 + y) % 150 else 0
+        brick(x=x_, y=y, height=brick_height, width=brick_width, color=sd.COLOR_CYAN)
 
 sd.pause()
