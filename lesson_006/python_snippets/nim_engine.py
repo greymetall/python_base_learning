@@ -18,10 +18,12 @@ def put_stones():
 
 def take_from_bunch(position, quantity):
     """ взять камни из кучи """
-    if position in _holder:
-        if (0 < quantity <= 3) & (_holder[position] >= quantity):
-            _holder[position] -= quantity
-            return True
+    if position.isdigit() & quantity.isdigit():
+        position, quantity = int(position), int(quantity)
+        if position in _holder:
+            if (0 < quantity <= 3) & (_holder[position] >= quantity):
+                _holder[position] -= quantity
+                return True
     else:
         return False
 

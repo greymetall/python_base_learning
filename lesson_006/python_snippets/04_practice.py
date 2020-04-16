@@ -34,7 +34,7 @@ while True:
     cprint('Ход игрока {}'.format(user_number), color=user_color, attrs=['underline'])
     pos = input(colored('Откуда берем?', color=user_color))
     qua = input(colored('Сколько берем?', color=user_color))
-    step_successed = take_from_bunch(position=int(pos), quantity=int(qua)) if pos.isdigit() & qua.isdigit() else False
+    step_successed = take_from_bunch(position=pos, quantity=qua)
     if step_successed:
         user_number = 2 if user_number == 1 else 1
     else:
