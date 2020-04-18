@@ -205,5 +205,5 @@ print(result)
 #     print(mul(10, 20, 30))
 
 
-# все специальные методы перечислены в
-#   https://docs.python.org/3/reference/datamodel.html#special-method-names
+# все перезагрузки операторов перечислены в
+#   https://docs.python.org/3/reference/datamodel.html#emulating-numeric-types
