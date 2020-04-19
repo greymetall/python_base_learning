@@ -9,4 +9,7 @@ def function1():
 
 print("Всем привет в этом чате!")
 
-# print("Module name is", __name__)
+print("Module name is", __name__)
+
+if __name__ == '__main__':
+    print("Меня вызвали!")

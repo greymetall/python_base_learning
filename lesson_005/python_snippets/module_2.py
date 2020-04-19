@@ -7,6 +7,7 @@ def function1():
     print('Hey!')
 
 
-print("Всем привет в этом чате!!!1")
+if __name__ == '__main__':
+    print("Всем привет в этом чате!!!")
 
-# print("Module name is", __name__)
+    print("Module name is", __name__)
