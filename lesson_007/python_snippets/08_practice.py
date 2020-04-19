@@ -2,7 +2,6 @@
 
 from random import randint
 
-
 # Реализуем модель человека.
 # Человек может есть, работать, играть, ходить в магазин.
 # У человека есть степень сытости, немного еды и денег.
@@ -47,10 +46,10 @@ class Man:
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
-    def go_to_the_house(self, house):
+    def move_into_the_house(self, house):
         self.house = house
         self.fullness -= 10
-        cprint('{} Вьехал в дом'.format(self.name), color='cyan')
+        cprint('{} въехал в дом'.format(self.name), color='cyan')
 
     def act(self):
         if self.fullness <= 0:
@@ -88,20 +87,19 @@ citizens = [
     Man(name='Кенни'),
 ]
 
-
 my_sweet_home = House()
-for citisen in citizens:
-    citisen.go_to_the_house(house=my_sweet_home)
+for citizen in citizens:
+    citizen.move_into_the_house(house=my_sweet_home)
 
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
-    for citisen in citizens:
-        citisen.act()
+    for citizen in citizens:
+        citizen.act()
     print('--- в конце дня ---')
-    for citisen in citizens:
-        print(citisen)
+    for citizen in citizens:
+        print(citizen)
     print(my_sweet_home)
 
 # Создадим двух людей, живущих в одном доме - Бивиса и Батхеда
-# Нужен класс Дом, в нем должн быть холодильник с едой и тумбочка с деньгами
+# Нужен класс Дом, в нем должен быть холодильник с едой и тумбочка с деньгами
 # Еда пусть хранится в холодильнике в доме, а деньги - в тумбочке.
