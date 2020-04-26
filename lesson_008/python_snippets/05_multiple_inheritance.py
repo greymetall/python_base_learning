@@ -73,10 +73,15 @@ class Drone(Robot, CanFly):
 
 
 orbiter = Drone(model='Orbiter II')
+print(orbiter)
 orbiter.take_off()
+print(orbiter)
 orbiter.fly()
+print(orbiter)
 orbiter.operate()
+print(orbiter)
 orbiter.land_on()
+print(orbiter)
 
 # А что будет если есть переопределение методов, которые реализованы в разных родительских?
 # Есть алгоритм MRO (method resolution order) который гарантированно обойдет всех родителей

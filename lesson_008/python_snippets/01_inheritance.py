@@ -51,7 +51,7 @@ my_pet.inspect()
 my_pet.sound()
 
 
-# Полезные встроенные аттрибуты
+# Полезные встроенные атрибуты
 class Pet:
     """ Домашнее животное """
     legs = 4
@@ -64,7 +64,7 @@ class Pet:
         print(self.__class__.__name__, self.name)  # ссылка на класс обьекта и далее на имя класса
         print('  Всего ног:', self.legs)
         print('  Хвост присутствует -', 'да' if self.has_tail else 'нет')
-        print(self.__dict__)  # подкапотный словарь атрибутов и методов
+        print(self.__dict__)  # подкапотный словарь атрибутов
 
 
 pet = Pet(name="Кузя")
@@ -154,6 +154,7 @@ class Missile(CanFly):
 
     def land_on(self):
         self.altitude = 0
+        self.velocity = 0
         self.destroy_enemy_base()
 
     def destroy_enemy_base(self):

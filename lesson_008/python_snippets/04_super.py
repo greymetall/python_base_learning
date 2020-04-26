@@ -46,14 +46,14 @@ print(r2d2)
 r2d2.operate()
 
 
-class SubmarineRobot(WarRobot):
+class WarSubmarineRobot(WarRobot):
 
     def operate(self):
         super().operate()
         print('Охрана ведется под водой')
 
 
-rc_submarine = WarRobot(model='Orbiter', gun='лазер')
+rc_submarine = WarSubmarineRobot(model='WarWhale', gun='лазер')
 print(rc_submarine)
 rc_submarine.operate()
 
