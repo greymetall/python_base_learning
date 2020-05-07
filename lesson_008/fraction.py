@@ -4,8 +4,6 @@ class Fraction:
     def __init__(self, a, b):
         self.num = int(a)
         self.den = int(b)
-        # conditions = any([a < 0 and b > 0, a > 0 and b < 0])
-        # self.negative = '-' if conditions else ''
         if self.den == 0:
             self.num, self.reduced_num = 0, 0
         elif self.den < 0:
@@ -41,7 +39,6 @@ class Fraction:
         else:
             sum_den = self.den * other.den
             sum_num = self.num * other.den + other.num * self.den
-        # gcd = self.gcd(sum_num, sum_den)
         result = Fraction(a=sum_num, b=sum_den)
         return result
 
@@ -54,7 +51,6 @@ class Fraction:
         else:
             sum_den = self.den * other.den
             sum_num = self.num * other.den + other.num * self.den
-        # gcd = self.gcd(sum_num, sum_den)
         result = Fraction(a=sum_num, b=sum_den)
         return result
 
@@ -67,7 +63,6 @@ class Fraction:
         else:
             sub_den = self.den * other.den
             sub_num = self.num * other.den - other.num * self.den
-        # gcd = self.gcd(sub_num, sub_den)
         result = Fraction(a=sub_num, b=sub_den)
         return result
 
@@ -80,7 +75,6 @@ class Fraction:
         else:
             sub_den = self.den * other.den
             sub_num = other.num * other.den - self.num * self.den
-        # gcd = self.gcd(sub_num, sub_den)
         result = Fraction(a=sub_num, b=sub_den)
         return result
 
@@ -91,7 +85,6 @@ class Fraction:
         else:
             mul_den = self.den * other.den
             mul_num = self.num * other.num
-        # gcd = self.gcd(mul_num, mul_den)
         result = Fraction(a=mul_num, b=mul_den)
         return result
 
@@ -102,7 +95,6 @@ class Fraction:
         else:
             mul_den = other.den * self.den
             mul_num = other.num * self.num
-        # gcd = self.gcd(mul_num, mul_den)
         result = Fraction(a=mul_num, b=mul_den)
         return result
 
@@ -149,6 +141,16 @@ class Fraction:
         return f"Fraction({self.num}, {self.den})"
 
 
+class OperationsOnFraction(Fraction):
+    """Операции с обыкновенными дробями"""
+
+    def getint(self):
+        return super().__int__()
+
+    def getfloat(self):
+        return super().__float__()
+
+
 fraction1 = Fraction(-8, 6)
 fraction2 = Fraction(-3, 6)
 sum_fraction1 = fraction1 + fraction2
@@ -163,5 +165,8 @@ mul_fraction2 = fraction1 * 2
 mul_fraction3 = 3 * fraction2
 int_fraction = int(fraction1)
 float_fraction = float(fraction2)
-print(sum_fraction1)
-# print(float(fraction1))
+print(f'{fraction1} + {fraction2} = {sum_fraction1}')
+fraction3 = OperationsOnFraction(-8, 6)
+print(fraction3.getint())
+print(fraction3.getfloat())
+print(fraction3)
