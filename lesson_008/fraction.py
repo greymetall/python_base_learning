@@ -2,8 +2,7 @@ class Fraction:
     """Обыкновенные дроби и операции с ними"""
 
     def __init__(self, a, b):
-        self.num = int(a)
-        self.den = int(b)
+        self.num, self.den = int(a), int(b)
         if self.den == 0:
             self.num, self.reduced_num = 0, 0
         elif self.den < 0:
@@ -24,11 +23,11 @@ class Fraction:
         while num % den:
             num, den = den, num % den
         return den
-            # for com_factor in range(abs(self.num) if abs(self.num) < abs(self.den) else abs(self.den), 1, -1):
-            #     if self.reduced_num % com_factor == 0 and self.den % com_factor == 0:
-            #         self.reduced_num //= com_factor
-            #         self.den //= com_factor if self.den > 0 else -(abs(self.den) // com_factor)
-            #         self.num //= com_factor if self.num > 0 else -(abs(self.num) // com_factor)
+        # for com_factor in range(abs(self.num) if abs(self.num) < abs(self.den) else abs(self.den), 1, -1):
+        #     if self.reduced_num % com_factor == 0 and self.den % com_factor == 0:
+        #         self.reduced_num //= com_factor
+        #         self.den //= com_factor if self.den > 0 else -(abs(self.den) // com_factor)
+        #         self.num //= com_factor if self.num > 0 else -(abs(self.num) // com_factor)
 
     def __add__(self, other):
         if isinstance(other, int):
@@ -39,20 +38,10 @@ class Fraction:
         else:
             sum_den = self.den * other.den
             sum_num = self.num * other.den + other.num * self.den
-        result = Fraction(a=sum_num, b=sum_den)
-        return result
+        return Fraction(a=sum_num, b=sum_den)
 
     def __radd__(self, other):
-        if isinstance(other, int):
-            other = Fraction(a=other * self.den, b=self.den)
-        if abs(self.den) == abs(other.den):
-            sum_den = self.den
-            sum_num = self.num + other.num
-        else:
-            sum_den = self.den * other.den
-            sum_num = self.num * other.den + other.num * self.den
-        result = Fraction(a=sum_num, b=sum_den)
-        return result
+        return self + other
 
     def __sub__(self, other):
         if isinstance(other, int):
@@ -63,20 +52,10 @@ class Fraction:
         else:
             sub_den = self.den * other.den
             sub_num = self.num * other.den - other.num * self.den
-        result = Fraction(a=sub_num, b=sub_den)
-        return result
+        return Fraction(a=sub_num, b=sub_den)
 
     def __rsub__(self, other):
-        if isinstance(other, int):
-            other = Fraction(a=other * self.den, b=self.den)
-        if abs(self.den) == abs(other.den):
-            sub_den = self.den
-            sub_num = other.num - self.num
-        else:
-            sub_den = self.den * other.den
-            sub_num = other.num * other.den - self.num * self.den
-        result = Fraction(a=sub_num, b=sub_den)
-        return result
+        return self - other
 
     def __mul__(self, other):
         if isinstance(other, int):
@@ -85,18 +64,10 @@ class Fraction:
         else:
             mul_den = self.den * other.den
             mul_num = self.num * other.num
-        result = Fraction(a=mul_num, b=mul_den)
-        return result
+        return Fraction(a=mul_num, b=mul_den)
 
     def __rmul__(self, other):
-        if isinstance(other, int):
-            mul_den = self.den
-            mul_num = self.num * other
-        else:
-            mul_den = other.den * self.den
-            mul_num = other.num * self.num
-        result = Fraction(a=mul_num, b=mul_den)
-        return result
+        return self * other
 
     def __int__(self):
         if 0 <= abs(self.num) < abs(self.den):
@@ -165,7 +136,7 @@ mul_fraction2 = fraction1 * 2
 mul_fraction3 = 3 * fraction2
 int_fraction = int(fraction1)
 float_fraction = float(fraction2)
-print(f'{fraction1} + {fraction2} = {sum_fraction1}')
+print(f'{fraction1} + {fraction2} = {fraction1 + fraction2}')
 fraction3 = OperationsOnFraction(-8, 6)
 print(fraction3.getint())
 print(fraction3.getfloat())
