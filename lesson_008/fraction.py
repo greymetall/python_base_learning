@@ -4,38 +4,44 @@ class Fraction:
     def __init__(self, a, b):
         self.num = int(a)
         self.den = int(b)
-        conditions = any([a < 0 and b > 0, a > 0 and b < 0])
-        self.negative = '-' if conditions else ''
-        if self.den <= 0:
-            self.res = 'Error'
-            self.reduced_num = 0
+        # conditions = any([a < 0 and b > 0, a > 0 and b < 0])
+        # self.negative = '-' if conditions else ''
+        if self.den == 0:
+            self.num, self.reduced_num = 0, 0
+        elif self.den < 0:
+            self.den, self.num = abs(self.den), -self.num
         else:
-            self.int = abs(self.num) // abs(self.den)
-            self.reduced_num = abs(self.num) % abs(self.den)
-            if self.reduced_num == 0:
-                self.res = -self.int if self.negative else self.int
-            if abs(self.num) == abs(self.den):
-                self.res = -1 if self.negative else 1
-            if self.num == 0:
-                self.res = 0
+            # self.int = abs(self.num) // abs(self.den)
+            # self.reduced_num = abs(self.num) % abs(self.den)
+            # if self.reduced_num == 0:
+            #     self.res = -self.int if self.negative else self.int
+            # if abs(self.num) == abs(self.den):
+            #     self.res = -1 if self.negative else 1
+            # if self.num == 0:
+            #     self.res = 0
+            pass
 
-    def reduction(self):
-        if abs(self.num) != abs(self.den):
-            for com_factor in range(abs(self.num) if abs(self.num) < abs(self.den) else abs(self.den), 1, -1):
-                if self.reduced_num % com_factor == 0 and self.den % com_factor == 0:
-                    self.reduced_num //= com_factor
-                    self.den //= com_factor if self.den > 0 else -(abs(self.den) // com_factor)
-                    self.num //= com_factor if self.num > 0 else -(abs(self.num) // com_factor)
+    def gcd(self, num, den):
+        num = abs(num)
+        while num % den:
+            num, den = den, num % den
+        return den
+            # for com_factor in range(abs(self.num) if abs(self.num) < abs(self.den) else abs(self.den), 1, -1):
+            #     if self.reduced_num % com_factor == 0 and self.den % com_factor == 0:
+            #         self.reduced_num //= com_factor
+            #         self.den //= com_factor if self.den > 0 else -(abs(self.den) // com_factor)
+            #         self.num //= com_factor if self.num > 0 else -(abs(self.num) // com_factor)
 
     def __add__(self, other):
         if isinstance(other, int):
             other = Fraction(a=other * self.den, b=self.den)
         if abs(self.den) == abs(other.den):
-            sum_den = abs(self.den)
+            sum_den = self.den
             sum_num = self.num + other.num
         else:
-            sum_den = abs(self.den) * abs(other.den)
-            sum_num = self.num * abs(other.den) + other.num * abs(self.den)
+            sum_den = self.den * other.den
+            sum_num = self.num * other.den + other.num * self.den
+        # gcd = self.gcd(sum_num, sum_den)
         result = Fraction(a=sum_num, b=sum_den)
         return result
 
@@ -43,11 +49,12 @@ class Fraction:
         if isinstance(other, int):
             other = Fraction(a=other * self.den, b=self.den)
         if abs(self.den) == abs(other.den):
-            sum_den = abs(self.den)
+            sum_den = self.den
             sum_num = self.num + other.num
         else:
-            sum_den = abs(self.den) * abs(other.den)
-            sum_num = self.num * abs(other.den) + other.num * abs(self.den)
+            sum_den = self.den * other.den
+            sum_num = self.num * other.den + other.num * self.den
+        # gcd = self.gcd(sum_num, sum_den)
         result = Fraction(a=sum_num, b=sum_den)
         return result
 
@@ -55,11 +62,12 @@ class Fraction:
         if isinstance(other, int):
             other = Fraction(a=other * self.den, b=self.den)
         if abs(self.den) == abs(other.den):
-            sub_den = abs(self.den)
+            sub_den = self.den
             sub_num = self.num - other.num
         else:
-            sub_den = abs(self.den) * abs(other.den)
-            sub_num = self.num * abs(other.den) - other.num * abs(self.den)
+            sub_den = self.den * other.den
+            sub_num = self.num * other.den - other.num * self.den
+        # gcd = self.gcd(sub_num, sub_den)
         result = Fraction(a=sub_num, b=sub_den)
         return result
 
@@ -67,11 +75,12 @@ class Fraction:
         if isinstance(other, int):
             other = Fraction(a=other * self.den, b=self.den)
         if abs(self.den) == abs(other.den):
-            sub_den = abs(self.den)
+            sub_den = self.den
             sub_num = other.num - self.num
         else:
-            sub_den = abs(self.den) * abs(other.den)
-            sub_num = other.num * abs(other.den) - self.num * abs(self.den)
+            sub_den = self.den * other.den
+            sub_num = other.num * other.den - self.num * self.den
+        # gcd = self.gcd(sub_num, sub_den)
         result = Fraction(a=sub_num, b=sub_den)
         return result
 
@@ -80,8 +89,9 @@ class Fraction:
             mul_den = self.den
             mul_num = self.num * other
         else:
-            mul_den = abs(self.den) * abs(other.den)
+            mul_den = self.den * other.den
             mul_num = self.num * other.num
+        # gcd = self.gcd(mul_num, mul_den)
         result = Fraction(a=mul_num, b=mul_den)
         return result
 
@@ -90,21 +100,25 @@ class Fraction:
             mul_den = self.den
             mul_num = self.num * other
         else:
-            mul_den = abs(other.den) * abs(self.den)
+            mul_den = other.den * self.den
             mul_num = other.num * self.num
+        # gcd = self.gcd(mul_num, mul_den)
         result = Fraction(a=mul_num, b=mul_den)
         return result
 
     def __int__(self):
-        if 0 < abs(self.num) < abs(self.den):
+        if 0 <= abs(self.num) < abs(self.den):
             return 0
-        elif self.den <= 0:
+        elif self.den == 0:
             print('Error')
             return 0
         elif abs(self.num) > abs(self.den):
-            return -self.int if self.negative else self.int
+            integer = abs(self.num) // abs(self.den)
+            return integer if self.num > 0 else -integer
+        elif abs(self.num) == abs(self.den):
+            return 1 if self.num > 0 else -1
         else:
-            return self.res
+            pass
 
     def __float__(self):
         if self.den == 0:
@@ -113,22 +127,41 @@ class Fraction:
         else:
             return self.num / self.den
 
-    def __str__(self):
-        self.reduction()
+    def __str__(self) -> str:
+        gcd = self.gcd(self.num, self.den)
+        self.num, self.den = self.num // gcd, self.den // gcd
+        integer = self.num // self.den if self.num >= 0 else -(abs(self.num) // self.den)
+        reduced_num = self.num % self.den if self.num >= 0 else -(abs(self.num) % self.den)
         if 0 < abs(self.num) < abs(self.den):
-            return f"{self.negative}{self.reduced_num}{chr(0x2044)}{abs(self.den)}"
+            return f"{reduced_num}{chr(0x2044)}{self.den}"
         elif abs(self.num) > abs(self.den):
-            if self.reduced_num:
-                return f"{self.negative}{self.int} {self.reduced_num}{chr(0x2044)}{abs(self.den)}"
-            else:
-                return str(self.res)
+            return f"{integer} {abs(reduced_num)}{chr(0x2044)}{self.den}" if reduced_num else str(integer)
+        elif abs(self.num) == abs(self.den):
+            return str(1) if self.num > 0 else str(-1)
+        elif self.num == 0:
+            return str(0)
+        elif self.den == 0:
+            return "Error"
         else:
-            return str(self.res)
+            pass
+
+    def __repr__(self) -> str:
+        return f"Fraction({self.num}, {self.den})"
 
 
-fraction1 = Fraction(-3, 6)
-# fraction2 = Fraction(-3, 6)
-# fraction = fraction1 * fraction2
-
-print(fraction1)
-print(float(fraction1))
+fraction1 = Fraction(-8, 6)
+fraction2 = Fraction(-3, 6)
+sum_fraction1 = fraction1 + fraction2
+sum_fraction2 = fraction1 + 2
+sum_fraction3 = 3 + fraction1
+sub_fraction1 = fraction1 - fraction2
+sub_fraction2 = fraction2 - fraction1
+sub_fraction3 = fraction1 - 1
+sub_fraction4 = 4 - fraction2
+mul_fraction1 = fraction1 * fraction2
+mul_fraction2 = fraction1 * 2
+mul_fraction3 = 3 * fraction2
+int_fraction = int(fraction1)
+float_fraction = float(fraction2)
+print(sum_fraction1)
+# print(float(fraction1))
