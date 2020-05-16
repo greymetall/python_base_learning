@@ -12,7 +12,7 @@
 
 
 def calc(line):
-    # print(f'Read line {line}', flush=True)
+    print(f'Read line {line}', flush=True)
     operand_1, operation, operand_2 = line.split(' ')
     operand_1 = int(operand_1)
     operand_2 = int(operand_2)
@@ -23,7 +23,7 @@ def calc(line):
     elif operation == '/':
         value = operand_1 / operand_2
     elif operation == '*':
-        value = operand_1 / operand_2
+        value = operand_1 * operand_2
     elif operation == '//':
         value = operand_1 // operand_2
     elif operation == '%':
@@ -34,7 +34,7 @@ def calc(line):
 
 
 total = 0
-with open('calc.txt', 'r') as ff:
+with open("D:\Курсы\Skillbox\Основы Python\python_homeworks\lesson_010\python_snippets\calc.txt", 'r') as ff:
     for line in ff:
         line = line[:-1]
         try:
