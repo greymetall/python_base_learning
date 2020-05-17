@@ -31,8 +31,8 @@ class NotEmailError(Exception):
     pass
 
 
-def tester_files(line):
-    # print(f'Read line {line}', flush=True)
+def checker(line):
+    print(f'Read line {line}', flush=True)
     length = len(line.split())
     if length < 3:
         raise ValueError(f'Недостаточно данных. Обнаружено: {length} требуетя: 3')
@@ -49,32 +49,25 @@ def tester_files(line):
             raise ValueError('Возраст вне диапазона от 10 до 99')
     else:
         raise ValueError('Возраст не распознан')
+    return line
 
 
-good_log = open('registrations_good.log', 'w', encoding='utf8')
-bad_log = open('registrations_bad.log', 'w', encoding='utf8')
-with open('registrations.txt', 'r', encoding='utf8') as ff:
+with open('registrations.txt', 'r', encoding='utf8') as ff, \
+        open('registrations_good.log', 'w', encoding='utf8') as good_log, \
+        open('registrations_bad.log', 'w', encoding='utf8') as bad_log:
     for number, string in enumerate(ff, 1):
         number, string = str(number) + '.', string[:-1]
-        output = number + string + ' - error: '
+        output = number + string + ' ' * (45 - len(string) - len(number)) + 'Error:'
         try:
-            tester_files(line=string)
+            good_log.write(number + checker(line=string) + '\n')
         except ValueError as exc:
-            bad_log.write(output + exc.args[0] + '\n')
-            print(output + exc.args[0])
+            bad_log.write(f'{output} {exc}' + '\n')
         except NotNameError as exc:
-            bad_log.write(output + exc.args[0] + '\n')
-            print(output + exc.args[0])
+            bad_log.write(f'{output} {exc}' + '\n')
         except NotEmailError as exc:
-            bad_log.write(output + exc.args[0] + '\n')
-            print(output + exc.args[0])
+            bad_log.write(f'{output} {exc}' + '\n')
         except Exception as exc:
-            bad_log.write(output + exc.args[0] + '\n')
-            print(output + 'Неизвестная ошибка:', exc.args[0])
-        else:
-            good_log.write(number + string + '\n')
-good_log.close()
-bad_log.close()
+            bad_log.write(f'{output} Неизвестная ошибка: {exc}' + '\n')
 
 
 # import os
