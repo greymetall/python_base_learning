@@ -52,9 +52,9 @@ def checker(line):
     return line
 
 
-with open('registrations.txt', 'r', encoding='utf8') as ff, \
-        open('registrations_good.log', 'w', encoding='utf8') as good_log, \
-        open('registrations_bad.log', 'w', encoding='utf8') as bad_log:
+good_log = open('registrations_good.log', 'w', encoding='utf8')
+bad_log = open('registrations_bad.log', 'w', encoding='utf8')
+with open('registrations.txt', 'r', encoding='utf8') as ff:
     for number, string in enumerate(ff, 1):
         number, string = str(number) + '.', string[:-1]
         output = number + string + ' ' * (45 - len(string) - len(number)) + 'Error:'
@@ -68,7 +68,8 @@ with open('registrations.txt', 'r', encoding='utf8') as ff, \
             bad_log.write(f'{output} {exc}' + '\n')
         except Exception as exc:
             bad_log.write(f'{output} Неизвестная ошибка: {exc}' + '\n')
-
+good_log.close()
+bad_log.close()
 
 # import os
 # os.chdir(r'D:\Курсы\Skillbox\Основы_Python\python_homeworks\lesson_010')
